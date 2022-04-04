@@ -1,0 +1,79 @@
+<div class="page-heading au">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="top-text header-text">
+                    <h6>Auth</h6>
+                    <h2>Login</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="contact-page">
+    <div class="auth">
+        <div class="container" id="container-auth">
+            <div class="content1  sign-in-container">
+                <form class="login" id="login_form">
+                    <h2 class="tituloForm1">Acceso</h2>
+                    <p class="texto">Iniciar sesión con un correo electrónico existente</p>
+                    <label class="label-input">
+                        <i class="far fa-envelope icon-modificado"></i>
+                        <input type="text" name="usr" id="usr" placeholder="E-mail or username" />
+                    </label>
+                    <span id="error_usr"></span>
+                    <label class="label-input">
+                        <i class="fas fa-lock icon-modificado"></i>
+                        <input type="password" name="password" id="pssw" placeholder="Password" />
+                    </label>
+                    <span id="error_pssw"></span>
+                    <button class="btn btnLogin1" id="login">Entrar</button>
+                </form>
+            </div>
+            <div class="content1 sign-up-container">
+                <form class="login" id="register_form">
+                    <h2 class="tituloForm2">Crea tu cuenta</h2>
+                    <p class="texto">Usa tu email para registrarte</p>
+                    <label class="label-input">
+                        <i class="far fa-user icon-modificado"></i>
+                        <input type="text" name="username" id="username" placeholder="Username" />    
+                    </label>
+                    <span id="error_username"></span>
+                    <label class="label-input">
+                        <i class="far fa-envelope icon-modificado"></i>
+                        <input type="text" name="email" id="email" placeholder="E-mail" />
+                    </label>
+                    <span id="error_email"></span>
+                    <label class="label-input">
+                        <i class="fas fa-lock icon-modificado"></i>
+                        <input type="password" name="password" id="password" placeholder="Password" />
+                    </label>
+                    <span id="error_password"></span>
+
+                    <input type="hidden" name="img" id="img_input" value="" required>
+                    <span id="error_img"></span>
+
+                    <button type="button" id="upload_widget" class="cloudinary-button">Upload files</button>
+                    <button type="button" class="btn btnCadastro1" id="registro">Registrar</button>
+                </form>
+            </div>
+
+            <div class="overlay-container">
+                <div class="overlay">
+                    <div class="content2 contentEsq">
+                        <h2 class="tituloInform">¡Bienvenido nuevamente!</h2>
+                        <p class="texto2">Si ya tienes una cuenta, inicia sesión</p>
+                        <button class="btn2 btnLogin2" id="signIn">Entrar</button>
+                    </div>
+                    <div class="content2 contentDir">
+                        <h2 class="tituloInform">Hola, nuevo amigo</h2>
+                        <p class="texto2">Regístrese con su correo electrónico para unirse a nosotros</p>
+                        <button class="btn2 btnCadastro2" id="signUp"></span>Registrarse</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

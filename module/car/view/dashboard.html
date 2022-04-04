@@ -1,0 +1,255 @@
+<div class="page-heading">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="top-text header-text">
+                    <h6>Admin</h6>
+                    <h2>DashBoard</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="contact-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="inner-content">
+                    <div class="row">
+                        <!-- Car -->
+                        <div class="col-lg-12">
+                            <form method="post" name="create_car_form" id="create_car_form" class="formk">
+                                <h2>Create car</h2>
+                                <div class="row">
+                                    <div class="col-lg-4 p-relative">
+                                        <select name="mark" id="mark_create_car">
+                                        </select>
+                                        <span id="e_mark_create_car" class="error"></span>
+                                    </div>
+
+                                    <div class="col-lg-4 p-relative">
+                                        <select name="model" id="model_create_car">
+                                            <option value="" selected disabled>Seleccione un modelo</option>
+                                        </select>
+                                        <span id="e_model_create_car" class="error"></span>
+                                    </div>
+
+                                    <div class="col-lg-4 p-relative">
+                                        <select name="typefuel" id="typefuel_create_car">
+                                        </select>
+                                        <span id="e_typefuel_create_car" class="error"></span>
+                                    </div>
+
+                                    <div class="col-lg-4 p-relative">
+                                        <input type="number" name="cv" id="cv" placeholder="Cv" autocomplete="on"
+                                            required value="10">
+                                        <span id="e_cv" class="error"></span>
+                                    </div>
+
+                                    <div class="col-lg-4 p-relative">
+                                        <input type="number" name="km" id="km" placeholder="Km" autocomplete="on"
+                                            required>
+                                        <span id="e_km" class="error"></span>
+                                    </div>
+
+                                    <div class="col-lg-4 p-relative">
+                                        <input type="number" name="numberofcylinders" id="numberofcylinders"
+                                            placeholder="N. cylinders" autocomplete="on" required>
+                                        <span id="e_numberofcylinders" class="error"></span>
+                                    </div>
+
+                                    <div class="col-lg-4 p-relative">
+                                        <input name="manufacturingdate" id="manufacturingdate_picker" type="text"
+                                            placeholder="Manufacturing date" autocomplete="off" required>
+                                    </div>
+
+                                    <div class="col-lg-4 p-relative">
+                                        <label for="color_ext">Exterior color</label>
+                                        <input name="color_ext" id="color_ext" type="color"
+                                            placeholder="Exterior color" autocomplete="off" required>
+                                    </div>
+
+                                    <div class="col-lg-4 p-relative">
+                                        <label for="color_int">Inside color</label>
+                                        <input name="color_int" id="color_int" type="color"
+                                            placeholder="Inside color" autocomplete="off" required>
+                                    </div>
+
+                                    <div class="col-lg-4 p-relative">
+                                        <input name="doors" id="doors" type="text"
+                                            placeholder="Doors" autocomplete="on" required>
+                                        <span id="e_doors" class="error"></span>
+                                    </div>
+
+                                    <div class="col-lg-4 p-relative">
+                                        <input name="price" id="price" type="text"
+                                            placeholder="Price" autocomplete="on" required>
+                                        <span id="e_price" class="error"></span>
+                                    </div>
+
+                                    <div class="col-lg-4 p-relative">
+                                        <input name="drive" id="drive" type="text"
+                                            placeholder="Type drive" autocomplete="on" required>
+                                        <span id="e_drive" class="error"></span>
+                                    </div>
+
+                                    <div class="col-lg-4 p-relative">
+                                        <input name="framenumber" id="framenumber" type="text"
+                                            placeholder="Framenumber" autocomplete="on" required>
+                                        <span id="e_framenumber" class="error"></span>
+                                    </div>
+
+                                    <div class="col-lg-4 p-relative">
+                                        <select name="category" id="category_create_car">
+                                        </select>
+                                        <span id="e_category_create_car" class="error"></span>
+                                    </div>
+
+                                    <div class="col-lg-4 p-relative">
+                                        <input name="nameImage" id="nameImage" type="text"
+                                            placeholder="NameImage" autocomplete="on" required>
+                                        <span id="e_nameImage" class="error"></span>
+                                    </div>
+
+                                    <!-- Attributes -->
+                                    <div class="col-lg-12 p-relative">
+                                        <p>Attributes</p>
+                                        <ul id="attributes_create_car">
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-12 p-relative">
+                                        <textarea name="overview" type="text" class="form-control" id="overview"
+                                            placeholder="Description" required=""></textarea>
+                                        <span id="e_overview" class="error"></span>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <button type="button" id="form-submit" class="main-button " onclick="validate_create_car()"><i
+                                                class="fa fa-paper-plane"></i> Save car</button>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- Mark -->
+                        <div class="col-lg-6">
+                            <form method="post" name="mark_car_form" id="mark_car_form" class="formk">
+                                <h2>Create Mark</h2>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <input type="name" name="name" id="name_mark" placeholder="Name" autocomplete="on"
+                                            required>
+                                            <span class="error" id="e_name_mark"></span>
+                                    </div>
+                                    <div class="col-lg-12 align-self-center">
+                                        <button type="button" id="form-submit" class="main-button " onclick="validate_create_mark()"><i
+                                                class="fa fa-paper-plane"></i> Save car</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- Model -->
+                        <div class="col-lg-6">
+                            <form method="post" name="model_car_form" id="model_car_form" class="formk">
+                                <h2>Create Model</h2>
+                                <div class="row">
+                                    <div class="col-lg-6 p-relative">
+                                        <input type="name" name="name" id="model_create_model" placeholder="Name" autocomplete="on"
+                                            required>
+                                        <span class="error" id="e_name_create_model"></span>
+                                    </div>
+                                    <div class="col-lg-6 p-relative">
+                                        <select name="mark" id="mark_create_model">
+                                        </select>
+                                        <span class="error" id="e_mark_create_model"></span>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <button type="button" id="form-submit" class="main-button " onclick="validate_create_model()"><i
+                                                class="fa fa-paper-plane"></i> Save Model</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- Category -->
+                        <div class="col-lg-12">
+                            <form method="post" name="category_car_form" id="category_car_form" class="formk">
+                                <h2>Create Category</h2>
+                                <div class="row">
+                                    <div class="col-lg-6 p-relative">
+                                        <input type="text" name="name" id="name_create_category" placeholder="Name" autocomplete="on"
+                                            required>
+                                        <span class="error" id="e_name_category"></span>
+                                    </div>
+                                    <div class="col-lg-6 p-relative">
+                                        <input type="text" name="title" id="title_create_category" placeholder="Title"
+                                            autocomplete="on" required>
+                                        <span class="error" id="e_title_category"></span>
+                                    </div>
+                                    <div class="col-lg-12 p p-relative">
+                                        <textarea name="overview" type="text" class="form-control" id="overview_create_category"
+                                            placeholder="Description" required=""></textarea>
+                                        <span class="error" id="e_overview_category"></span>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <button type="button" id="form-submit" class="main-button " onclick="validate_create_category()"><i
+                                                class="fa fa-paper-plane"></i> Save Category</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- Attribute -->
+                        <div class="col-lg-6">
+                            <form method="post" name="attribute_car_form" id="attribute_car_form" class="formk">
+                                <h2>Create Attribute</h2>
+                                <div class="row">
+                                    <div class="col-lg-6 p-relative">
+                                        <input type="text" name="name" id="name_attribute" placeholder="Name" autocomplete="on"
+                                            required>
+                                        <span class="error" id="e_name_attribute"></span>
+                                    </div>
+                                    <div class="col-lg-6 p-relative">
+                                        <input type="text" name="title" id="title_attribute" placeholder="Title"
+                                            autocomplete="on" required>
+                                        <span class="error" id="e_title_attribute"></span>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <button type="button" id="form-submit" class="main-button " onclick="validate_create_attribute()"><i
+                                                class="fa fa-paper-plane"></i> Save Attribute</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- TypeFuel -->
+                        <div class="col-lg-6">
+                            <form method="post" name="typefuel_car_form" id="typefuel_car_form" class="formk">
+                                <h2>Create TypeFuel</h2>
+                                <div class="row">
+                                    <div class="col-lg-6 p-relative">
+                                        <input type="text" name="name" id="name_typefuel" placeholder="Name" autocomplete="on"
+                                            required>
+                                        <span class="error" id="e_name_typefuel"></span>
+                                    </div>
+                                    <div class="col-lg-6 p-relative">
+                                        <input type="text" name="title" id="title_typefuel" placeholder="Title"
+                                            autocomplete="on" required>
+                                        <span class="error" id="e_title_typefuel"></span>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <button type="button" id="form-submit" class="main-button " onclick="validate_create_typefuel()"><i
+                                                class="fa fa-paper-plane"></i> Save TypeFuel</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$( function() {
+    $( "#manufacturingdate_picker" ).datepicker({ maxDate: "+0M -1D" });
+} );
+</script>
