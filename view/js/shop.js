@@ -22,7 +22,6 @@ function setMarks(params) {
             .setLngLat(element.coord)
             .setPopup(popup)
             .addTo(map);
-
         currentMarkers.push(mark);
     });
 
@@ -109,7 +108,7 @@ function loadCars(items_page = 4, total_prod = 0) {
 
             if (data['count'] > 0) {
                 data['data'].forEach(car => {
-                    $('<div></div>').attr({ 'id': 'col-ck-' + count, 'data-id': car['data'].id_car }).addClass('col-lg-12 cardk').appendTo('#row_shop_car')
+                    $('<div></div>').attr({ 'id': 'col-ck-' + count, 'data-id': car['data'].id_car, 'data-type': "card" }).addClass('col-lg-12 cardk').appendTo('#row_shop_car')
 
                     $('<div></div>').attr({ 'id': 'listing-it-ck-' + count }).addClass('listing-item').appendTo('#col-ck-' + count)
 
@@ -122,6 +121,16 @@ function loadCars(items_page = 4, total_prod = 0) {
                     $('<div></div>').attr('id', 'butt-ck-' + count).addClass('main-white-button clk-btn').appendTo('#hov-ck-' + count)
                     $('<a></a>').attr('id', 'a2-ck-' + count).appendTo('#butt-ck-' + count)
                     $('#a2-ck-' + count).html('<i class="fa fa-eye"></i> Contact Now')
+
+                    // Like
+                    $('<div></div>').attr({ 'id': 'hov-ckl-' + count, 'data-id': car['data'].id_car }).addClass('hover-content like-cont').appendTo('#left-img-ck-' + count)
+                    $('<div></div>').attr('id', 'butt-ckl-' + count).addClass('main-white-button clk-btn lll-' + car['data'].id_car).appendTo('#hov-ckl-' + count)
+                    if (car['data'].liked) {
+                        $('#butt-ckl-' + count).html('<i class="fa fa-heart"></i>')
+                    } else {
+                        $('#butt-ckl-' + count).html('<i class="fa-regular fa-heart"></i>')
+                    }
+
 
                     $('<div></div>').attr('id', 'right-cont-ck-' + count).addClass('right-content align-self-center').appendTo('#listing-it-ck-' + count)
                     $('<a></a>').attr('id', 'a3-ck-' + count).appendTo('#right-cont-ck-' + count)
@@ -161,51 +170,50 @@ function loadCars(items_page = 4, total_prod = 0) {
                 $('<div>No hay coches disponibles</div>').addClass('msg-empty').appendTo('#row_shop_car')
             }
             setMarks(markers)
-            loadModalCar()
-            empAll()
+            // loadModalCar()
+            controllerClickCard()
         }).catch(function (e) {
             console.log(e);
         })
 }
 
 // modal
-function loadModalCar() {
-    $(".hover-content").on("click", function () {
-        var id = this.getAttribute('data-id')
+function loadModalCar(id) {
+    // $(".hover-content").on("click", function () {
+    //     var id = this.getAttribute('data-id')
 
-        ajaxPromise('module/shop/controller/controller_shop.php?op=read_car&id=' + id, 'GET', 'json')
-            .then(function (data) {
-                $('#modalShow').empty();
-                $('#modalShow').addClass('car-modal');
-                $('<div></div>').attr('id', 'modal-content-show').addClass('modal-content').appendTo('#modalShow');
-                $('<div></div>').attr('id', 'modal-header-show').addClass('modal-header success').appendTo('#modal-content-show');
-                $('<h2>Vista del coche</h2>').appendTo('#modal-header-show');
-                $('<span>&times;</span>').attr('id', 'modalClose').addClass('close').appendTo('#modal-header-show');
-                $('<div></div>').addClass('linebr').appendTo('#modal-content-show');
-                $('<div></div>').attr('id', 'rowk').addClass('rowk').appendTo('#modal-content-show');
-                $('<div></div>').attr('id', 'img').addClass('img').appendTo('#rowk');
-                $('<img>').attr('src', 'view/images' + data['imgs'][0]).appendTo('#img');
-                $('<div></div>').attr('id', 'modalshowbody').addClass('modal-body').appendTo('#rowk');
-                $('<div></div>').attr('id', 'modal-footer').addClass('modal-footer success').appendTo('#modal-content-show');
-                $('#modalshowbody').html(function () {
-                    var content = "";
+    ajaxPromise('module/shop/controller/controller_shop.php?op=read_car&id=' + id, 'GET', 'json')
+        .then(function (data) {
+            $('#modalShow').empty();
+            $('#modalShow').addClass('car-modal');
+            $('<div></div>').attr('id', 'modal-content-show').addClass('modal-content').appendTo('#modalShow');
+            $('<div></div>').attr('id', 'modal-header-show').addClass('modal-header success').appendTo('#modal-content-show');
+            $('<h2>Vista del coche</h2>').appendTo('#modal-header-show');
+            $('<span>&times;</span>').attr('id', 'modalClose').addClass('close').appendTo('#modal-header-show');
+            $('<div></div>').addClass('linebr').appendTo('#modal-content-show');
+            $('<div></div>').attr('id', 'rowk').addClass('rowk').appendTo('#modal-content-show');
+            $('<div></div>').attr('id', 'img').addClass('img').appendTo('#rowk');
+            $('<img>').attr('src', 'view/images' + data['imgs'][0]).appendTo('#img');
+            $('<div></div>').attr('id', 'modalshowbody').addClass('modal-body').appendTo('#rowk');
+            $('<div></div>').attr('id', 'modal-footer').addClass('modal-footer success').appendTo('#modal-content-show');
+            $('#modalshowbody').html(function () {
+                var content = "";
 
-                    content += '<p class="title">' + data['data'].name_mark + ' ' + data['data'].name_model + '</p>'
-                    content += '<p class="date">' + data['data'].manufacturingdate_car + '</p>'
-                    content += '<p class="typefuel">' + data['data'].name_type_fuel + '</p>'
-                    content += '<p class="cv">' + data['data'].cv_car + ' cv</p>'
-                    content += '<p class="categ">' + data['data'].name_category + '</p>'
+                content += '<p class="title">' + data['data'].name_mark + ' ' + data['data'].name_model + '</p>'
+                content += '<p class="date">' + data['data'].manufacturingdate_car + '</p>'
+                content += '<p class="typefuel">' + data['data'].name_type_fuel + '</p>'
+                content += '<p class="cv">' + data['data'].cv_car + ' cv</p>'
+                content += '<p class="categ">' + data['data'].name_category + '</p>'
 
-                    return content;
-                });
-                $('#modal-footer').html(data['data'].overview_car)
-                $("#modalShow").addClass("active");
-                closeModalShow();
-
-            }).catch(function (e) {
-                console.log("error" + e);
-            })
-    });
+                return content;
+            });
+            $('#modal-footer').html(data['data'].overview_car)
+            $("#modalShow").addClass("active");
+            closeModalShow();
+        }).catch(function (e) {
+            console.log("error" + e);
+        })
+    // });
 }
 function closeModalShow() {
     $("#modalClose").on("click", function () {
@@ -379,9 +387,39 @@ function loadDetails(id) {
             console.log("error" + e);
         })
 }
-function empAll() {
+function setUnsetLike(id) {
+    var conf = {}
+    conf.params = {
+        id
+    }
+    conf.method = "POST"
+    conf.url = 'module/shop/controller/controller_shop.php?op=setUnsetLike'
+    ajaxPromise(conf.url, conf.method, 'json', conf.params)
+        .then((data) => {
+            if(data == "err_notok") {
+                window.location.href = '?module=auth';
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
+
+function controllerClickCard() {
     $(".cardk").on("click", function (e) {
-        if (e.target.tagName !== 'A') {
+        if (e.target.tagName == 'A') {
+            var id = this.getAttribute('data-id')
+            loadModalCar(id)
+        } else if (e.target.tagName == 'I') {
+            var id = this.getAttribute('data-id')
+            $('.lll-' + id).empty()
+            if (e.target.className == "fa-heart fa" || e.target.className == "fa fa-heart") {
+                $('.lll-' + id).html('<i class="fa-heart fa-regular"></i>')
+            } else if (e.target.className == "fa-heart fa-regular" || e.target.className == "fa-regular fa-heart") {
+                $('.lll-' + id).html('<i class="fa-heart fa"></i>')
+            }
+            setUnsetLike(id)
+        } else {
             $(".menuk").addClass("d-none")
             $('#row_shop_car').empty()
             $('#pagination .cont').empty()

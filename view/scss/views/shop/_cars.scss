@@ -7,6 +7,15 @@
         width: 60%;
     }
     .hover-content {
+        &.like-cont {
+            top: 20px !important;
+            left: 20px !important;
+            right: inherit;
+            bottom: inherit;
+            background-color: $whiteThree;
+            padding: 0 5px;
+            border-radius: 100%;
+        }
         &:hover {
             cursor: pointer;
         }

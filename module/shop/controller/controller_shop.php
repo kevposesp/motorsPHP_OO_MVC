@@ -1,6 +1,7 @@
 <?php
-$path = $_SERVER['DOCUMENT_ROOT'] . '/daw_php/programacion/motors/';
+$path = $_SERVER['DOCUMENT_ROOT'] . '/motors_PHP_OO_MVC/';
 include($path . "module/shop/model/Shop.php");
+include($path . "model/middleware_auth.php");
 
 switch ($_GET['op']) {
     case 'list_cars':
@@ -23,6 +24,7 @@ switch ($_GET['op']) {
         break;
     case 'list_cars_with_names':
         try{
+            $token = MiddlewareAuth::middlewareAuth();
             $dcar = new Shop();
 
             if (isset($_POST['filters'])) {
@@ -42,14 +44,14 @@ switch ($_GET['op']) {
                         array_push($arr[$f[0]], $f[1] . ":" . $f[2]);
                     }
                 }
-                $cars = $dcar->select_all_car_with_names($arr, $_POST['items_page'], $_POST['total_prod']);
+                $cars = $dcar->select_all_car_with_names($arr, $_POST['items_page'], $_POST['total_prod'], $token);
                 // echo json_encode($arr);
             } else {
                 $arr = null;
-                $cars = $dcar->select_all_car_with_names($arr, $_POST['items_page'], $_POST['total_prod']);
+                $cars = $dcar->select_all_car_with_names($arr, $_POST['items_page'], $_POST['total_prod'], $token);
             }
         }catch (Exception $e){
-            echo json_encode("error");
+            echo json_encode("error".$e);
         }
         if(!$cars){
             echo json_encode("error");
@@ -73,7 +75,6 @@ switch ($_GET['op']) {
             echo json_encode($all_cars);
         }
         // echo json_encode($_POST);
-        // echo json_encode($cars);
         break;
     case 'read_releated_by_mark':
         try {
@@ -161,6 +162,29 @@ switch ($_GET['op']) {
             echo json_encode("error");
         }
         // echo json_encode("Llega");
+        break;
+    case 'setUnsetLike':
+        if (isset($_POST['id'])) {
+            try {
+                $token = MiddlewareAuth::middlewareAuth();
+                if($token) {
+                    $id = $_POST['id'];
+                    $dcar = new Shop();
+                    $rdo = $dcar->setUnsetLike($token['id_usr'], $id);
+                } else {
+                    $rdo = "err_notok";
+                }
+            }catch(Exception $e) {
+                echo json_encode($e);
+            }
+            if($rdo) {
+                echo json_encode($rdo);
+            } else {
+                echo json_encode("errordao");
+            }
+        } else {
+            echo json_encode("no_id");
+        }
         break;
     case 'list':
         include("module/shop/view/index.html");

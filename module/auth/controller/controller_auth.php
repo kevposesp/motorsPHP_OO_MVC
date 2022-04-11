@@ -1,5 +1,5 @@
 <?php
-$path = $_SERVER['DOCUMENT_ROOT'] . '/daw_php/programacion/motors/';
+$path = $_SERVER['DOCUMENT_ROOT'] . '/motors_PHP_OO_MVC/';
 include($path . "module/auth/model/Auth.php");
 include($path . "module/auth/model/validate_auth.php");
 include($path . "model/middleware_auth.php");
@@ -19,10 +19,13 @@ if (isset($_GET['op'])) {
                     echo json_encode($e);
                 }
                 if ($rdo == false) {
-                    echo json_encode("error");
+                    $res['status'] = false;
+                    echo json_encode($res);
                 } else {
                     $_SESSION['time'] = time();
-                    echo json_encode($rdo);
+                    $res['status'] = true;
+                    $res['data'] = $rdo;
+                    echo json_encode($res);
                 }
             }
             break;

@@ -1,5 +1,5 @@
 <?php
-$path = $_SERVER['DOCUMENT_ROOT'] . '/daw_php/programacion/motors/';
+$path = $_SERVER['DOCUMENT_ROOT'] . '/motors_PHP_OO_MVC/';
 include($path . "module/attribute/model/Attributes.php");
 
 switch ($_GET['op']) {

@@ -1,6 +1,6 @@
 <?php
 
-$path = $_SERVER['DOCUMENT_ROOT'] . '/daw_php/programacion/motors/';
+$path = $_SERVER['DOCUMENT_ROOT'] . '/motors_PHP_OO_MVC/';
 include($path . "model/connect.php");
 include($path . "model/utils.php");
 
@@ -14,14 +14,22 @@ class Shop {
         return $res;
     }
 
-    function select_all_car_with_names($arr, $items_page, $total_prod){
+    function select_all_car_with_names($arr, $items_page, $total_prod, $token){
         $sql = "SELECT c.*, m.name_model, m.img_model, mm.name_mark, mm.img_mark, tf.name_type_fuel,
         tf.title_type_fuel, tf.img_type_fuel, cc.name_category, cc.title_category, cc.description_category,
-        cc.img_category, cc.icon_category FROM cars c
+        cc.img_category, cc.icon_category, l.id_car liked FROM cars c
         left join models m on (c.model_car = m.id_model)
         left join marks mm on (m.mark_model = mm.id_mark)
         left join type_fuel tf on (c.fuel_type_car = tf.id_type_fuel)
         left join categories cc on (c.category_car = cc.id_category)";
+        if($token) {
+            $id_usr = $token['id_usr'];
+            $sql .= " left join likes l on c.id_car = l.id_car
+		            and l.id_user = '$id_usr'";
+        } else {
+            $sql .= " left join likes l on c.id_car = l.id_car
+                    and l.id_user = null";
+        }
         $ids_tf = [];
         $ids_cc = [];
         $ids_mm = [];
@@ -229,4 +237,11 @@ class Shop {
         }
     // }
 
+    function setUnsetLike($id_usr, $id_car){
+        $sql = "call like_proced('$id_usr', '$id_car');";
+        $conn = connect::con();
+        $res = mysqli_query($conn, $sql);
+        connect::close($conn);
+        return $res;
+    }
 }

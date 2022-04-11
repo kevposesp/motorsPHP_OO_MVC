@@ -206,11 +206,15 @@ function login() {
         conf.params = data
         ajaxPromise(conf.url, 'POST', 'json', conf.params)
             .then(function (data) {
-                alertify.success('Has iniciado session', 3)
-                localStorage.setItem('token', data)
-                setTimeout(() => {
-                    window.location.href = '?module=home';
-                }, 3000);
+                if (data['status']) {
+                    alertify.success('Has iniciado session', 3)
+                    localStorage.setItem('token', data['data'])
+                    setTimeout(() => {
+                        window.location.href = '?module=home';
+                    }, 3000);
+                } else if(!data['status']) {
+                    alertify.error('Error al iniciar', 3)
+                }
             }).catch(function (e) {
                 console.log("error" + e);
             })

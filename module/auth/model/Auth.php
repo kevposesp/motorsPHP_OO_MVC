@@ -1,6 +1,6 @@
 <?php
 
-$path = $_SERVER['DOCUMENT_ROOT'] . '/daw_php/programacion/motors/';
+$path = $_SERVER['DOCUMENT_ROOT'] . '/motors_PHP_OO_MVC/';
 include($path . "model/connect.php");
 include($path . "model/utils.php");
 
@@ -98,7 +98,7 @@ class Auth
         $rdo = $this->select_user($data['usr']);
         $pass = $rdo->password_user;
         if (password_verify($data['password'], $pass)) {
-            $inifile = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/daw_php/programacion/motors/secret.ini');
+            $inifile = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/motors_PHP_OO_MVC/secret.ini');
             $header = $inifile['header'];
             $secret = $inifile['secret'];
             $payload = '{"iat":"' . time() . '","exp":"' . time() + (10 * 60) . '","id_usr":"' . $rdo->id_user . '"}';
@@ -115,7 +115,7 @@ class Auth
 
     function refresh_token($id)
     {
-        $inifile = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/daw_php/programacion/motors/secret.ini');
+        $inifile = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/motors_PHP_OO_MVC/secret.ini');
         $header = $inifile['header'];
         $secret = $inifile['secret'];
         $payload = '{"iat":"' . time() . '","exp":"' . time() + (10 * 60) . '","id_usr":"' . $id . '"}';
