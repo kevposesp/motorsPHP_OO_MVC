@@ -39,6 +39,21 @@ if (isset($_GET['op'])) {
                     } catch (Exception $e) {
                         echo json_encode($e);
                     }
+
+                    
+                    require_once($_SERVER['DOCUMENT_ROOT'] . '/motors_PHP_OO_MVC/PHPMailer/config.php');
+
+                    $mail->ClearAllRecipients();
+
+                    $mail->AddAddress($_POST['email']);
+
+                    $mail->IsHTML(true);  //podemos activar o desactivar HTML en mensaje
+                    $mail->Subject = "Mensaje enviado desde el modulo de auth en motors";
+
+                    $msg = "<h1>Bienvenido a motors</h1><br>";
+
+                    $mail->Body = $msg;
+                    $mail->Send();
                 }
                 echo json_encode($errors);
             }
@@ -71,7 +86,7 @@ if (isset($_GET['op'])) {
             } else {
                 echo json_encode(false);
             }
-                // echo json_encode(true);
+            // echo json_encode(true);
             break;
         case 'refreshsesion':
             session_regenerate_id();
@@ -100,14 +115,14 @@ if (isset($_GET['op'])) {
             break;
         case 'infBut':
             $token = MiddlewareAuth::middlewareAuth();
-            if($token != false) {
+            if ($token != false) {
                 try {
                     $auth = new Auth();
                     $rdo = $auth->infBut($token);
                 } catch (Exception $e) {
                     echo json_encode($e);
                 }
-                if($rdo) {
+                if ($rdo) {
                     echo json_encode($rdo);
                 } else {
                     echo json_encode("error_server");
